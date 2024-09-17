@@ -2,11 +2,12 @@
 # the open-source pygame library
 # throughout this file
 import pygame
-import pygame.sprite
+import sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+
 
 def main():
     pygame.init
@@ -31,15 +32,20 @@ def main():
             if event.type == pygame.QUIT:
                 return
         pygame.Surface.fill(screen, (0, 0, 0))
-        for drawables in drawable:
-            drawables.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
         pygame.display.flip()
         
         # limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
 
-        for updateables in updateable:
-            updateables.update(dt)
+        for obj in updateable:
+            obj.update(dt)
+        
+        for obj in asteroids:
+            if obj.collision(player):
+                print("Game over!")
+                sys.exit()
         
 
 
