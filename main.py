@@ -51,6 +51,10 @@ def main():
             if obj.collision(player):
                 print("Game over!")
                 sys.exit()
+            for bullet in shots:
+                if bullet.collision(obj):
+                    bullet.kill()
+                    obj.kill()
         
 
 
